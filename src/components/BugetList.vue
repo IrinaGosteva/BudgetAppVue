@@ -2,7 +2,7 @@
   <div class="buget-list-wrap">
     <el-card :header="header">
       <template v-if="!isEmpty">
-        <BudgetListItem :buttonValue="buttonValue" :list="list" @deleteItem="onDeleteItem"/>
+        <BudgetListItem @onChangeCounter="sortItemID1" :buttonValue="buttonValue" :list="list" @deleteItem="onDeleteItem"/>
       </template>   
       <el-alert v-else type ="info" :title="emptyTitle" :closable="false" />   
     </el-card>
@@ -40,6 +40,9 @@ export default {
     },
     onDeleteItem(id) {
       this.$delete(this.list, id);
+    },
+    sortItemID1(){
+      this.$emit("onChangeCounter1", event.target.id);
     },
   }
 };

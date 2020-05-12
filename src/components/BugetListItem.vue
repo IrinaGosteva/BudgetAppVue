@@ -1,9 +1,9 @@
 <template>
 <div>
   <div class="sortButtons">
-   <el-button type="success" id="0" icon="el-icon-top" plain size="mini" @click="sortItemID(id)"></el-button>
-   <el-button type="danger" id="1" icon="el-icon-bottom" plain size="mini" @click="sortItemID(id)"></el-button>
-   <el-button type="primary" id="2" icon="el-icon-check" plain size="mini" @click="sortItemID(id)">All</el-button>
+   <el-button type="success" id="2" icon="el-icon-top" plain size="mini" @click="sortItemID"></el-button>
+   <el-button type="danger" id="3" icon="el-icon-bottom" plain size="mini" @click="sortItemID"></el-button>
+   <el-button type="primary" id="1" icon="el-icon-check" plain size="mini" @click="sortItemID">All</el-button>
   </div>
   <div class="list-item" v-for="(item, prop) in list" :key="prop">
       <span :class="elIconBottom" v-if="item.type==='OUTCOME'"> </span>
@@ -23,14 +23,13 @@
       </el-dialog>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
   name: "BudgetListItem",
   props: {
-    buttonValue: Number,
+    buttonValue: [Number, String],
     list: {
       type: [Object, Array],
       default: () => ({     
@@ -53,43 +52,11 @@ export default {
     deleteItemHendler(id) {
       this.$emit("deleteItemHendler", id);  
     },   
-    sortItems(id, event) {
-      console.log(event.target.id, this.sortItemID);
-      (this.$emit("sortItems", id));  
-    },
-    sortItemsID(){
-      console.log(555);
-      this.sortItemCounter += 1;
-      this.$emit("onChangeSortItemCounter", this.sortItemCounter);
-    },
     sortItemID(id){
-      this.buttonValue = event.target.id;
-      // console.log(event.target.id, this.buttonValue);
       this.$emit("onChangeCounter", id);
     }    
   },
   computed: {
-    // sortItemID: function() {
-    // // return console.log(this.sortItemID = event.target.id);  
-    //   // this.sortItemID =  event.target.id;
-    //   // return if (event.target!==this.sortItemID) {  
-    //     return console.log(this.buttonValue);
-      
-        
-  
-    
-    //   //  (this.sortItemsID);     
-    // },
-    
-    // textStyleNumber: function() { 
-    //  return Object.values(this.list).map((list)=> {
-    //     if ( list.type == "OUTCOME" ) {
-    //       return 'text-red';
-    //     } else {
-    //       return 'text-green';
-    //       }
-    //    });
-    // }
   },
 }
 </script>
@@ -117,4 +84,18 @@ export default {
   text-align: right;
   padding: 0 15px 20px 15px;
 }
+
+</style>
+
+<style>
+.el-icon-bottom:before, 
+.el-icon-check:before,
+.el-icon-top:before,
+.el-icon-bottom, 
+.el-icon-check,
+.el-icon-top,
+[class*=" el-icon-"], [class^=el-icon-] {
+    pointer-events: none!important;
+  }
+
 </style>

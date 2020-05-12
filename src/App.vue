@@ -2,8 +2,10 @@
   <div id="app">
     <Form @submitForm="onFormSubmit" />
     <TotalBalance :total="totalBalance" />
-    <BugetList :buttonValue="buttonValue" :list="sortList" @deleteItem="onDeleteItem"  @change="onChange($event)" @sortItems="onSortItems" @onChangeCounter="changebuttonValue"/>
+    <BugetList :buttonValue="buttonValue" :list="sortList" @deleteItem="onDeleteItem"  @change="onChange($event)" @onChangeCounter1="changebuttonValue"/>
+
   </div>
+  
 </template>
 
 <script>
@@ -11,12 +13,14 @@ import BugetList from '@/components/BugetList';
 import TotalBalance from '@/components/TotalBalance';
 import Form from '@/components/Form';
 
+
 export default {
   name: 'App',
   components: {
     BugetList,
     TotalBalance,
-    Form
+    Form,
+
   },
   data: () => ({
     buttonValue: 1,
@@ -48,23 +52,19 @@ export default {
          },0);
     },
     sortList() {
-      if (this.buttonValue==1) {      
+      if (this.buttonValue==2) {      
        return (Object.values(this.list).filter((list)=> list.type == 'INCOME'));
-       } else  if (this.buttonValue==0) {   
+       } else  if (this.buttonValue==1) {   
             return (Object.values(this.list).filter((list)=> list.type));
           } else { return (Object.values(this.list).filter((list)=> list.type == 'OUTCOME'));
          }
     }
   },
+
   methods: {
-    changebuttonValue(id){
-      console.log(id, this.buttonValue);
-      this.$set(this.buttonValue, id);
-    //  this.buttonValue=id;
-    },
-    onChangeSortItemCounter(value){
-      this.buttonValue = value;
-      console.log(value, );
+    changebuttonValue(value){
+      this.buttonValue=+value;
+      // console.log(value, this.buttonValue);
     },
     onDeleteItem(id) {
       this.$delete(this.list, id);
@@ -76,15 +76,9 @@ export default {
       };
       this.$set(this.list, newObj.id, newObj);
     },
-    onSortItems(id) {
-      // console.log(event.target);
-      // console.log(1, Object.values(this.list).filter((list)=> list.type == 'INCOME'));
-      // this.$set( Object.values(this.list).filter((list)=> list.type == 'INCOME'));
-      console.log(25);
-      console.log(id);
-
-      this.$set(this.buttonValue=id);
-    },
+    // onSortItems(id) {
+    //   this.$set(this.buttonValue=id);
+    // },
   },
 }
 </script>
